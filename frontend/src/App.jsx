@@ -99,7 +99,7 @@ function App() {
           </p>
 
           {/* Add Item Form */}
-          <div className="border border-gray-300 text-sm bg-white shadow-md rounded-lg p-12 mb-8">
+          <div className="border border-gray-200 text-sm bg-white shadow-md rounded-lg p-12 mb-8">
             <form onSubmit={handleAddItem} className="grid grid-cols-3 gap-6 items-end mb-4">
               <div>
                 <label className="block mb-1 font-semibold">🍉 Item Name</label>
@@ -131,8 +131,8 @@ function App() {
                 ADD TO FRIDGE
               </button>
             </form>
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-gray-500 text-sm">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-gray-500 text-sm">
                 <span className="inline-block mr-2">⚠️</span>
                 We Don't Want More Than One Piece Of The Same Food In Our Fridge.
               </p>
@@ -167,10 +167,10 @@ function App() {
             return (
               <div 
                 key={item.id} 
-                className="border border-gray-300 bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center"
+                className="border border-gray-100 bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center"
               >
                 <span className="font-semibold w-1/4">{item.name}</span>
-                <span className="text-xs text-gray-500 w-1/4">
+                <span className="text-xs font-semibold text-gray-500 w-1/4">
                   Expiry date — {new Date(item.expiryDate).toLocaleDateString()}
                 </span>
                 <span className={`text-xs font-bold rounded-[24px] ${status.className} px-2 py-1 rounded w-1/6 text-center`}>
