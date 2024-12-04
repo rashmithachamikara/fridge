@@ -40,7 +40,7 @@ function App() {
     oneMonthFromNow.setMonth(today.getMonth() + 1);
 
     if (expiry < today) return { label: 'Expired', className: 'bg-red-200 text-red-800' };
-    if (expiry <= oneMonthFromNow) return { label: 'Expiring soon', className: 'bg-yellow-200 text-yellow-800' };
+    if (expiry <= oneMonthFromNow) return { label: 'Expiring soon', className: 'bg-[#FFFDCC] text-yellow-800' };
     return { label: 'Healthy', className: 'bg-green-200 text-green-800' };
   };
 
@@ -170,16 +170,17 @@ function App() {
                 key={item.id} 
                 className="border border-gray-100 bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center"
               >
-                <span className="font-semibold w-1/4">{item.name}</span>
+                <span className="font-semibold w-1/6">{item.name}</span>
                 <span className="text-xs font-semibold text-gray-500 w-1/4">
                   Expiry date — {new Date(item.expiryDate).toLocaleDateString()}
                 </span>
+                <span className='w-1/4'> </span>
                 <span className={`text-xs font-bold rounded-[24px] ${status.className} px-2 py-1 rounded w-1/6 text-center`}>
                   {status.label}
                 </span>
                 <button 
                   onClick={() => handleDeleteItem(item.id)}
-                  className="text-gray-500 w-1/12 text-right"
+                  className="text-gray-500 w-1/12 text-center"
                 >
                   <i className="fas fa-trash hover:text-[#E63F3F] transition-colors duration-200"></i>
                 </button>

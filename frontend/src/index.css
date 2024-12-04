@@ -25,6 +25,7 @@
 }
 
 body{
+  min-height: 100vh;
   background: linear-gradient(to bottom, 
     white 340px,  /* Top part (white) up to 350px */
     #f4faff 340px  /* Bottom part (#f4faff) starting from 350px */
