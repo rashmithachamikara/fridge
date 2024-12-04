@@ -87,8 +87,9 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100">
-      <div className="w-full bg-white p-8">
+    <div className="flex flex-col items-center justify-center">
+      
+      <div className="w-full p-8">
         <div className='w-full lg:w-2/3 lg:mx-auto lg:p-6'>
           <h1 className="heading text-4xl font-extrabold text-center mb-2 mt-12">
             Good Morning, Johny!
