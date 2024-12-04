@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.heading{
+  color: #003A59;
+}
+
+.button{
+  background-color: #00598D;
+}
+
+.background{
+  background-color: #f4faff;
+  position: absolute;
+  top: 350px;
+  height: 150px;
+  width: 100%;
+  z-index: -1;
+}
+
+.status{
+  color: #003A59;
+}
