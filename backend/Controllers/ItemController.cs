@@ -13,25 +13,33 @@ namespace backend.Controllers
 {
     [Route("api/items")]
     [ApiController]
-    public class ItemController: ControllerBase
+    public class ItemController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+        private readonly DbContext _context;
+        private readonly string _databaseProvider;
 
-        public ItemController(ApplicationDBContext context)
+        // Constructor: Accept DbContext as a dependency
+        public ItemController(DbContext context, IConfiguration configuration)
         {
             _context = context;
+            _databaseProvider = configuration["DatabaseProvider"];
+            if (string.IsNullOrEmpty(_databaseProvider))
+            {
+                throw new InvalidOperationException("DatabaseProvider is not configured in the settings.");
+            }
+
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Item>>> GetItems()
         {
-            return Ok(await _context.Item.ToListAsync());
+            return Ok(await _context.Set<Item>().ToListAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
         {
-            var item = await _context.Item.FindAsync(id);
+            var item = await _context.Set<Item>().FindAsync(id);
 
             if (item == null)
             {
@@ -49,13 +57,13 @@ namespace backend.Controllers
                 return BadRequest();
             }
 
-            if (await _context.Item.AnyAsync(i => i.Name == itemDto.Name))
+            if (await _context.Set<Item>().AnyAsync(i => i.Name == itemDto.Name))
             {
                 return Conflict("Item with the same name already exists!");
             }
 
             var item = itemDto.ToModel();
-            _context.Item.Add(item);
+            _context.Set<Item>().Add(item);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetItem", new { id = item.Id }, item);
@@ -64,7 +72,7 @@ namespace backend.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Item>> Update(int id, [FromBody] ItemDto itemDto)
         {
-            var itemModel = await _context.Item.FindAsync(id);
+            var itemModel = await _context.Set<Item>().FindAsync(id);
 
             if (itemModel == null)
             {
@@ -74,7 +82,7 @@ namespace backend.Controllers
             itemModel.Name = itemDto.Name;
             itemModel.ExpiryDate = itemDto.ExpiryDate;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(itemModel);
         }
@@ -82,18 +90,17 @@ namespace backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Item>> Delete(int id)
         {
-            var item = await _context.Item.FindAsync(id);
+            var item = await _context.Set<Item>().FindAsync(id);
 
             if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Item.Remove(item);
+            _context.Set<Item>().Remove(item);
             await _context.SaveChangesAsync();
 
             return Ok(item);
         }
-        
     }
 }

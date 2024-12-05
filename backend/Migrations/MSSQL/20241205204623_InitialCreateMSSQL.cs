@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace backend.Migrations
+namespace backend.Migrations.MSSQL
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreateMSSQL : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
