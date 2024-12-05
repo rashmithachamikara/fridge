@@ -44,6 +44,16 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Item>> Create([FromBody] ItemDto itemDto)
         {
+            if (itemDto.Name == null || itemDto.ExpiryDate == null)
+            {
+                return BadRequest();
+            }
+
+            if (await _context.Item.AnyAsync(i => i.Name == itemDto.Name))
+            {
+                return Conflict("Item with the same name already exists!");
+            }
+
             var item = itemDto.ToModel();
             _context.Item.Add(item);
             await _context.SaveChangesAsync();
