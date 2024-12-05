@@ -69,6 +69,9 @@ function App() {
       setNewItem({ name: '', expiryDate: '' });
     } catch (error) {
       console.error('Error adding item:', error);
+      if (error.response?.status === 409) {
+        alert('Item already exists in the fridge. Please remove the existing item first.');
+      }
     }
   };
 
